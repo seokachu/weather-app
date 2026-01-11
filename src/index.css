@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+@layer base {
+  body {
+    @apply text-slate-800;
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
+
+  button:disabled {
+    @apply cursor-not-allowed opacity-50;
+  }
+}
