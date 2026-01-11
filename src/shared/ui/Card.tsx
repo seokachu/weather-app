@@ -1,3 +1,4 @@
+import { cn } from '@/shared/lib/clsx';
 import type { ComponentPropsWithoutRef, ElementType } from 'react';
 
 type CardProps<T extends ElementType> = {
@@ -7,7 +8,7 @@ type CardProps<T extends ElementType> = {
 const Card = <T extends ElementType = 'div'>({ as, className = '', children, ...props }: CardProps<T>) => {
   const Component = as || 'div';
   return (
-    <Component className={`p-8 rounded-[40px] mb-8 shadow-sm ${className}`} {...props}>
+    <Component className={cn('p-8 rounded-3xl mb-8 shadow-sm', className)} {...props}>
       {children}
     </Component>
   );
