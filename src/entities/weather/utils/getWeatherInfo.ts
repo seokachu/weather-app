@@ -50,3 +50,9 @@ const calculateMinMax = (values: number[], type: 'min' | 'max') => {
   const result = type === 'min' ? Math.min(...values) : Math.max(...values);
   return Math.round(result);
 };
+
+// 시간 별 기온 정보 가져오기 (15시간)
+export const getHourlyForecast = (data: WeatherItem[]) => {
+  const hourlyForecast = data.filter((item) => item.category === WEATHER_CATEGORY.TEMPERATURE).slice(0, 15);
+  return hourlyForecast;
+};
