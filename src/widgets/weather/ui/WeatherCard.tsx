@@ -4,15 +4,16 @@ import type { WeatherItem } from '@/entities/weather/types';
 
 interface WeatherCardProps {
   data: WeatherItem[];
+  locationName: string;
 }
 
-const WeatherCard = ({ data }: WeatherCardProps) => {
+const WeatherCard = ({ data, locationName }: WeatherCardProps) => {
   const { minTemp, maxTemp } = getMinMaxTemp(data);
   const currentTemp = getCurrentTemp(data);
 
   return (
     <Card as="section" className="bg-linear-to-br from-blue-500 to-indigo-600 text-white">
-      <h2 className="text-2xl font-semibold mb-1">내 주변 날씨</h2>
+      <h2 className="text-2xl font-semibold mb-1">📍 {locationName}</h2>
       <p className="text-sm opacity-80 mb-2">현재 시간 기준 예보입니다</p>
       <div className="flex justify-between items-end">
         <div>
