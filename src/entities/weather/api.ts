@@ -1,10 +1,11 @@
 import { getWeatherBaseTime } from './utils/getWeatherBaseTime';
 import { createWeatherUrl } from './utils/createWeatherUrl';
 import { getTargetCoords } from './utils/getSearchCoords';
-import type { WeatherItem } from './types';
+import type { WeatherData } from './types';
 
-export const getVilageFcst = async (coords?: { nx: number; ny: number }): Promise<WeatherItem[]> => {
-  const { nx, ny } = await getTargetCoords(coords);
+export const getVilageFcst = async (coords?: { nx: number; ny: number }): Promise<WeatherData> => {
+  const targetCoords = await getTargetCoords(coords);
+  const { nx, ny } = targetCoords;
 
   // 기상청 기준 발표 시간
   const { baseDate, baseTime } = getWeatherBaseTime();
@@ -19,5 +20,10 @@ export const getVilageFcst = async (coords?: { nx: number; ny: number }): Promis
     throw new Error(response?.header?.resultMsg || '날씨 정보를 불러오지 못했습니다.');
   }
 
-  return response.body.items.item;
+  const weatherData = {
+    items: response.body.items.item,
+    coords: targetCoords,
+  };
+
+  return weatherData;
 };

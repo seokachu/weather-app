@@ -9,4 +9,9 @@ export interface WeatherItem {
   ny: number;
 }
 
+export interface WeatherData {
+  items: WeatherItem[];
+  coords: { nx: number; ny: number };
+}
+
 export type WeatherBaseTime = (typeof WEATHER_BASE_TIME)[keyof typeof WEATHER_BASE_TIME];
