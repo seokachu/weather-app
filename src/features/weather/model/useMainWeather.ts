@@ -1,34 +1,46 @@
-import { useState } from 'react';
-import { getGridCoords } from '@/features/search/model/getGridCoords';
+import { useMemo, useState } from 'react';
 import { useWeather } from '@/entities/weather/queries/useWeather';
-import type { LocationType } from '@/features/search/model/locationData';
+import { getGridCoords } from '@/shared/utils/getGridCoords';
+import { findAddressName } from '@/shared/utils/findAddressName';
+import type { LocationType } from '@/shared/utils/locationData';
 
 export const useMainWeather = () => {
-  const [locationName, setLocationName] = useState('내 주변 날씨');
+  const [locationName, setLocationName] = useState('');
   const [selectedCoords, setSelectedCoords] = useState<{ nx: number; ny: number } | undefined>(undefined);
   const [hasNoLocationData, setHasNoLocationData] = useState(false);
 
   const { data, isPending, isError } = useWeather(selectedCoords);
 
+  const displayLocationName = useMemo(() => {
+    if (locationName) return locationName;
+    return findAddressName(selectedCoords || data?.coords);
+  }, [data?.coords, selectedCoords, locationName]);
+
   const handleLocationSelect = (location: LocationType) => {
-    setLocationName(location.fullAddress);
-
     const coords = getGridCoords(location);
-
+    setLocationName(location.fullAddress);
     if (coords) {
       setSelectedCoords(coords);
       setHasNoLocationData(false);
     } else {
-      setSelectedCoords(undefined);
       setHasNoLocationData(true);
     }
   };
 
   const handleReset = () => {
-    setLocationName('내 주변 날씨');
     setSelectedCoords(undefined);
+    setLocationName('');
     setHasNoLocationData(false);
   };
 
-  return { data, isPending, isError, locationName, hasNoLocationData, handleReset, handleLocationSelect };
+  return {
+    selectedCoords,
+    data,
+    isPending,
+    isError,
+    locationName: displayLocationName,
+    hasNoLocationData,
+    handleReset,
+    handleLocationSelect,
+  };
 };
