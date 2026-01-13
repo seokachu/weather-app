@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import SearchBar from './SearchBar';
 import SearchList from './SearchList';
-import { flattenedLocations, type LocationType } from '../model/locationData';
+import { flattenedLocations, type LocationType } from '@/shared/utils/locationData';
 
 interface RegionSearchProps {
   onSelect: (location: LocationType) => void;
