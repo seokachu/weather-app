@@ -1,9 +1,13 @@
 import RegionSearch from '@/features/search/ui/RegionSearch';
-import { WeatherCard, HourlyWeather, WeatherSummary } from '@/widgets/weather';
-import WeatherCardSkeleton from '@/widgets/weather/ui/skeleton/WeatherCardSkeleton';
-import HourlyWeatherSkeleton from '@/widgets/weather/ui/skeleton/HourlyWeatherSkeleton';
-import WeatherSummarySkeleton from '@/widgets/weather/ui/skeleton/WeatherSummarySkeleton';
-import WeatherError from '@/widgets/weather/ui/WeatherError';
+import {
+  WeatherCard,
+  HourlyWeather,
+  WeatherSummary,
+  WeatherCardSkeleton,
+  HourlyWeatherSkeleton,
+  WeatherSummarySkeleton,
+  WeatherError,
+} from '@/widgets/weather';
 import { BottomNav } from '@/shared/ui/layout/BottomNav';
 import { useMainWeather } from '@/features/weather/model/useMainWeather';
 
