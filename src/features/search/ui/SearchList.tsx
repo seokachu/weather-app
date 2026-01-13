@@ -1,6 +1,6 @@
 import Card from '@/shared/ui/Card';
 import SearchListItem from './SearchListItem';
-import type { LocationType } from '../model/locationData';
+import type { LocationType } from '@/shared/utils/locationData';
 
 interface SearchListProps {
   filtered: LocationType[];

@@ -1,4 +1,4 @@
-import type { LocationType } from '../model/locationData';
+import type { LocationType } from '@/shared/utils/locationData';
 
 interface SearchListItemProps {
   location: LocationType;
