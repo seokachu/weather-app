@@ -1,4 +1,5 @@
 import RegionSearch from '@/features/search/ui/RegionSearch';
+import { useMainWeather } from '@/features/weather/model/useMainWeather';
 import {
   WeatherCard,
   HourlyWeather,
@@ -9,7 +10,6 @@ import {
   WeatherError,
 } from '@/widgets/weather';
 import { BottomNav } from '@/shared/ui/layout/BottomNav';
-import { useMainWeather } from '@/features/weather/model/useMainWeather';
 
 export const MainPage = () => {
   const { data, isPending, isError, locationName, hasNoLocationData, handleReset, handleLocationSelect } =
@@ -19,9 +19,9 @@ export const MainPage = () => {
 
   const dataView = data && (
     <>
-      <WeatherCard data={data} locationName={locationName} />
-      <HourlyWeather data={data} />
-      <WeatherSummary data={data} />
+      <WeatherCard data={data.items} locationName={locationName} coords={data.coords} />
+      <HourlyWeather data={data.items} />
+      <WeatherSummary data={data.items} />
     </>
   );
 
