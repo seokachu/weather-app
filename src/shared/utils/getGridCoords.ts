@@ -5,7 +5,7 @@
 
 import { getLocationCoordinate } from '@/shared/data/locationCoordinates';
 import { convertToGrid } from '@/shared/utils/coordinateConverter';
-import type { LocationType } from '@/features/search/model/locationData';
+import type { LocationType } from '@/shared/utils/locationData';
 
 export const getGridCoords = (location: LocationType) => {
   // 위경도 좌표 찾기
