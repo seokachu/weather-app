@@ -1,14 +1,10 @@
-import { convertToGrid } from '@/shared/utils/coordinateConverter';
-import { getLocation } from '@/shared/utils/getLocation';
 import { getWeatherBaseTime } from './utils/getWeatherBaseTime';
 import { createWeatherUrl } from './utils/createWeatherUrl';
+import { getTargetCoords } from './utils/getSearchCoords';
 import type { WeatherItem } from './types';
 
-export const getVilageFcst = async (): Promise<WeatherItem[]> => {
-  // 위치 정보 불러오기 및 격자 좌표 변환
-  const pos = await getLocation();
-  const { latitude, longitude } = pos.coords;
-  const { nx, ny } = convertToGrid(latitude, longitude);
+export const getVilageFcst = async (coords?: { nx: number; ny: number }): Promise<WeatherItem[]> => {
+  const { nx, ny } = await getTargetCoords(coords);
 
   // 기상청 기준 발표 시간
   const { baseDate, baseTime } = getWeatherBaseTime();
