@@ -1,7 +1,7 @@
 import { Star } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useFavorites } from '../hooks/useFavorites';
-import { TOAST_MESSAGES } from '@/shared/constants/toastmessages';
+import { TOAST_MESSAGES } from '@/shared/constants/messages';
 
 interface FavoriteButtonProps {
   coords: { nx: number; ny: number };

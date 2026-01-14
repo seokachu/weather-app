@@ -2,7 +2,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { Pencil, Star } from 'lucide-react';
 import FavoriteEditForm from './FavoriteEditForm';
-import { TOAST_MESSAGES } from '@/shared/constants/toastmessages';
+import { TOAST_MESSAGES } from '@/shared/constants/messages';
 import type { FavoriteLocation } from '../types';
 
 interface FavoriteItemProps {

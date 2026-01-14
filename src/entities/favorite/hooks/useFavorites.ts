@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import toast from 'react-hot-toast';
-import { TOAST_MESSAGES } from '@/shared/constants/toastmessages';
+import { TOAST_MESSAGES } from '@/shared/constants/messages';
 import type { FavoriteLocation } from '@/entities/favorite/types';
 
 const STORAGE_KEY = 'weather-favorites';
