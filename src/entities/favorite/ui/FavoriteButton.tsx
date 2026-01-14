@@ -1,4 +1,5 @@
 import { Star } from 'lucide-react';
+import toast from 'react-hot-toast';
 import { useFavorites } from '../hooks/useFavorites';
 
 interface FavoriteButtonProps {
@@ -16,6 +17,9 @@ const FavoriteButton = ({ coords, locationName }: FavoriteButtonProps) => {
 
     if (favorited) {
       removeFavorite(locationName);
+      toast('즐겨찾기 목록에서 제거되었습니다.', {
+        icon: '🗑️',
+      });
     } else {
       addFavorite({
         id: locationName,
@@ -23,6 +27,8 @@ const FavoriteButton = ({ coords, locationName }: FavoriteButtonProps) => {
         nx: coords.nx,
         ny: coords.ny,
       });
+
+      toast.success(`${locationName}이(가) 추가되었습니다.`);
     }
   };
 
