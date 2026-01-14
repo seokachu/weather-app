@@ -1,3 +1,5 @@
+import { Search } from 'lucide-react';
+
 interface SearchBarProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -5,7 +7,7 @@ interface SearchBarProps {
 
 const SearchBar = ({ value, onChange }: SearchBarProps) => {
   return (
-    <div className="mb-6">
+    <div className="mb-6 relative">
       <input
         type="text"
         value={value}
@@ -14,7 +16,9 @@ const SearchBar = ({ value, onChange }: SearchBarProps) => {
         className="w-full p-4 pl-12 rounded-2xl bg-white shadow-xs border border-slate-100 focus:ring-1 focus:ring-blue-200 transition-all"
         autoFocus
       />
-      <span className="absolute left-4 top-1/2 -translate-y-1/2">🔍</span>
+      <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
+        <Search size={20} strokeWidth={2.5} />
+      </div>
     </div>
   );
 };
