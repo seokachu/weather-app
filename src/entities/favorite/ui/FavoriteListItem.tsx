@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { Pencil, Star } from 'lucide-react';
+import FavoriteEditForm from './FavoriteEditForm';
+import type { FavoriteLocation } from '../types';
 
 interface FavoriteItemProps {
-  favorite: { id: string; name: string; fullAddress: string };
+  favorite: FavoriteLocation;
   onRemove: (id: string) => void;
   onUpdate: (id: string, newName: string) => void;
   onNavigate: (address: string) => void;
@@ -9,51 +12,52 @@ interface FavoriteItemProps {
 
 const FavoriteListItem = ({ favorite, onRemove, onUpdate, onNavigate }: FavoriteItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [tempName, setTempName] = useState(favorite.name);
 
-  const handleSave = () => {
-    if (tempName.trim() && tempName !== favorite.name) {
-      onUpdate(favorite.id, tempName.trim());
+  if (!favorite) return null;
+
+  const handleUpdate = (newName: string) => {
+    if (newName.trim() && newName !== favorite.name) {
+      onUpdate(favorite.id, newName.trim());
     }
     setIsEditing(false);
   };
 
   return (
-    <li className="flex justify-between items-center p-4 bg-white border border-slate-100 rounded-2xl shadow-sm transition-all">
-      <div className="flex-1 cursor-pointer" onClick={() => !isEditing && onNavigate(favorite.fullAddress)}>
+    <li
+      onClick={() => !isEditing && onNavigate(favorite.fullAddress)}
+      className="relative flex items-center p-4 bg-white border border-slate-100 rounded-2xl shadow-sm cursor-pointer hover:bg-slate-50 active:bg-slate-100 transition-colors gap-4"
+    >
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onRemove(favorite.id);
+        }}
+        className="text-yellow-400 hover:text-slate-300 transition-colors shrink-0"
+      >
+        <Star size={24} fill="currentColor" strokeWidth={1.5} />
+      </button>
+
+      <div className="flex-1 min-w-0 pr-6">
         {isEditing ? (
-          <input
-            autoFocus
-            className="border-b-2 border-blue-400 outline-none font-semibold text-lg text-slate-700 w-full bg-blue-50 px-1"
-            value={tempName}
-            onChange={(e) => setTempName(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleSave()}
-            onBlur={handleSave}
-            onClick={(e) => e.stopPropagation()}
-          />
+          <FavoriteEditForm initialName={favorite.name} onSave={handleUpdate} />
         ) : (
-          <div className="flex items-center gap-2 mb-1">
-            <span className="font-semibold text-lg text-slate-700">{favorite.name}</span>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsEditing(true);
-              }}
-              className="text-[10px] text-slate-400 border border-slate-200 px-1.5 py-0.5 rounded hover:bg-slate-100"
-            >
-              수정
-            </button>
-          </div>
+          <span className="font-semibold text-lg truncate block">{favorite.name}</span>
         )}
-        <p className="text-xs text-slate-400">{favorite.fullAddress}</p>
+        <p className="text-xs text-slate-400 truncate">{favorite.fullAddress}</p>
       </div>
 
-      <button
-        onClick={() => onRemove(favorite.id)}
-        className="ml-4 text-red-400 text-sm font-medium p-2 hover:bg-red-50 rounded-lg"
-      >
-        삭제
-      </button>
+      {!isEditing && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsEditing(true);
+          }}
+          className="absolute top-3 right-3 p-1 text-slate-300 hover:text-cyan-600 transition-all"
+          title="수정"
+        >
+          <Pencil size={16} />
+        </button>
+      )}
     </li>
   );
 };

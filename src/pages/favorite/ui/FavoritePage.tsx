@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useFavorites } from '@/entities/favorite/hooks/useFavorites';
-import { FavoriteEmptyView } from '@/entities/favorite/ui/FavoriteEmptyView';
+import FavoriteEmptyView from '@/entities/favorite/ui/FavoriteEmptyView';
 import FavoriteList from '@/entities/favorite/ui/FavoriteList';
 
 export const FavoritePage = () => {

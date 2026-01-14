@@ -1,4 +1,4 @@
-export const FavoriteEmptyView = () => {
+const FavoriteEmptyView = () => {
   return (
     <div className="flex flex-col items-center justify-center py-20 text-slate-400 text-center">
       <span className="text-4xl mb-4">📍</span>
@@ -6,3 +6,5 @@ export const FavoriteEmptyView = () => {
     </div>
   );
 };
+
+export default FavoriteEmptyView;
