@@ -1,19 +1,22 @@
-import Card from '@/shared/ui/Card';
 import { getCurrentTemp, getMinMaxTemp } from '@/entities/weather/utils/getWeatherInfo';
+import FavoriteButton from '@/entities/favorite/ui/FavoriteButton';
+import Card from '@/shared/ui/Card';
 import type { WeatherItem } from '@/entities/weather/types';
 
 interface WeatherCardProps {
   data: WeatherItem[];
   locationName: string;
+  coords: { nx: number; ny: number };
 }
 
-const WeatherCard = ({ data, locationName }: WeatherCardProps) => {
+const WeatherCard = ({ data, locationName, coords }: WeatherCardProps) => {
   const { minTemp, maxTemp } = getMinMaxTemp(data);
   const currentTemp = getCurrentTemp(data);
 
   return (
-    <Card as="section" className="bg-linear-to-br from-blue-500 to-indigo-600 text-white">
-      <h2 className="text-2xl font-semibold mb-1">📍 {locationName}</h2>
+    <Card as="section" className="relative bg-linear-to-br from-blue-500 to-indigo-600 text-white">
+      <FavoriteButton coords={coords} locationName={locationName} />
+      <h2 className="text-2xl font-semibold mb-1 leading-tight break-keep">📍 {locationName}</h2>
       <p className="text-sm opacity-80 mb-2">현재 시간 기준 예보입니다</p>
       <div className="flex justify-between items-end">
         <div>

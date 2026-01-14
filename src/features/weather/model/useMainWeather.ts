@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useWeather } from '@/entities/weather/queries/useWeather';
 import { getGridCoords } from '@/shared/utils/getGridCoords';
 import { findAddressName } from '@/shared/utils/findAddressName';
@@ -16,7 +16,7 @@ export const useMainWeather = () => {
     return findAddressName(selectedCoords || data?.coords);
   }, [data?.coords, selectedCoords, locationName]);
 
-  const handleLocationSelect = (location: LocationType) => {
+  const handleLocationSelect = useCallback((location: LocationType) => {
     const coords = getGridCoords(location);
     setLocationName(location.fullAddress);
     if (coords) {
@@ -25,13 +25,13 @@ export const useMainWeather = () => {
     } else {
       setHasNoLocationData(true);
     }
-  };
+  }, []);
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     setSelectedCoords(undefined);
     setLocationName('');
     setHasNoLocationData(false);
-  };
+  }, []);
 
   return {
     selectedCoords,
