@@ -39,7 +39,7 @@
 
 ```bash
 # 레포지토리 클론
-git clone [https://github.com/seokachu/weather-app](https://github.com/seokachu/weather-app)
+git clone https://github.com/seokachu/weather-app
 cd weather-app
 
 # 의존성 설치
@@ -60,7 +60,7 @@ npm run dev
 VITE_WEATHER_SERVICE_KEY=your_service_key_here
 
 # 기상청 단기예보 API 베이스 URL
-VITE_WEATHER_API_BASE_URL=[https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst](https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst)
+VITE_WEATHER_API_BASE_URL=https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst
 ```
 
 ---
