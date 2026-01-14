@@ -32,12 +32,7 @@ export const MainPage = ({ isDetail = false }: { isDetail?: boolean }) => {
 
   return (
     <main className="p-6">
-      <MainHeader
-        isDetail={isDetail}
-        locationError={locationError}
-        locationName={locationName}
-        onLocationSelect={handleLocationSelect}
-      />
+      <MainHeader isDetail={isDetail} locationError={locationError} onLocationSelect={handleLocationSelect} />
       {renderContent()}
     </main>
   );
