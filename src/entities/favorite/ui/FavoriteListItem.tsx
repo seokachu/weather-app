@@ -2,6 +2,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { Pencil, Star } from 'lucide-react';
 import FavoriteEditForm from './FavoriteEditForm';
+import { TOAST_MESSAGES } from '@/shared/constants/toastmessages';
 import type { FavoriteLocation } from '../types';
 
 interface FavoriteItemProps {
@@ -19,7 +20,7 @@ const FavoriteListItem = ({ favorite, onRemove, onUpdate, onNavigate }: Favorite
   const handleUpdate = (newName: string) => {
     if (newName.trim() && newName !== favorite.name) {
       onUpdate(favorite.id, newName.trim());
-      toast.success('이름이 변경되었습니다.');
+      toast.success(TOAST_MESSAGES.FAVORITE.UPDATE);
     }
     setIsEditing(false);
   };
@@ -27,7 +28,7 @@ const FavoriteListItem = ({ favorite, onRemove, onUpdate, onNavigate }: Favorite
   const handleRemove = (e: React.MouseEvent) => {
     e.stopPropagation();
     onRemove(favorite.id);
-    toast.success('즐겨찾기 목록에서 제거되었습니다.');
+    toast.success(TOAST_MESSAGES.FAVORITE.REMOVE);
   };
 
   return (

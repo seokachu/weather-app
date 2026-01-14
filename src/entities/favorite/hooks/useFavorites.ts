@@ -1,4 +1,6 @@
 import { useState, useCallback } from 'react';
+import toast from 'react-hot-toast';
+import { TOAST_MESSAGES } from '@/shared/constants/toastmessages';
 import type { FavoriteLocation } from '@/entities/favorite/types';
 
 const STORAGE_KEY = 'weather-favorites';
@@ -27,7 +29,7 @@ export const useFavorites = () => {
       if (isFavorite(location.fullAddress)) return;
 
       if (favorites.length >= 6) {
-        alert('최대 6개까지만 가능합니다.');
+        toast.error(TOAST_MESSAGES.FAVORITE.LIMIT);
         return;
       }
 
