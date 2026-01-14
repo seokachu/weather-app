@@ -8,17 +8,16 @@ interface FavoriteButtonProps {
 const FavoriteButton = ({ coords, locationName }: FavoriteButtonProps) => {
   const { isFavorite, addFavorite, removeFavorite } = useFavorites();
 
-  const currentId = `${coords.nx}-${coords.ny}`;
-  const favorited = isFavorite(currentId);
+  const favorited = isFavorite(locationName);
 
   const handleToggle = (e: React.MouseEvent) => {
     e.stopPropagation();
 
     if (favorited) {
-      removeFavorite(currentId);
+      removeFavorite(locationName);
     } else {
       addFavorite({
-        id: currentId,
+        id: locationName,
         fullAddress: locationName,
         nx: coords.nx,
         ny: coords.ny,

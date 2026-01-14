@@ -12,7 +12,10 @@ const getInitialFavorites = (): FavoriteLocation[] => {
 export const useFavorites = () => {
   const [favorites, setFavorites] = useState<FavoriteLocation[]>(getInitialFavorites);
 
-  const isFavorite = useCallback((id: string) => favorites.some((favorite) => favorite.id === id), [favorites]);
+  const isFavorite = useCallback(
+    (fullAddress: string) => favorites.some((favorite) => favorite.fullAddress === fullAddress),
+    [favorites]
+  );
 
   const saveToStorage = useCallback((newList: FavoriteLocation[]) => {
     setFavorites(newList);
@@ -21,7 +24,7 @@ export const useFavorites = () => {
 
   const addFavorite = useCallback(
     (location: Omit<FavoriteLocation, 'name'>) => {
-      if (isFavorite(location.id)) return;
+      if (isFavorite(location.fullAddress)) return;
 
       if (favorites.length >= 6) {
         alert('최대 6개까지만 가능합니다.');
