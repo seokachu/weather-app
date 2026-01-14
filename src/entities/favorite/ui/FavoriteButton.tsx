@@ -17,9 +17,7 @@ const FavoriteButton = ({ coords, locationName }: FavoriteButtonProps) => {
 
     if (favorited) {
       removeFavorite(locationName);
-      toast('즐겨찾기 목록에서 제거되었습니다.', {
-        icon: '🗑️',
-      });
+      toast.success('즐겨찾기 목록에서 제거되었습니다.');
     } else {
       addFavorite({
         id: locationName,

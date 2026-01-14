@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { Pencil, Star } from 'lucide-react';
 import FavoriteEditForm from './FavoriteEditForm';
 import type { FavoriteLocation } from '../types';
@@ -18,8 +19,15 @@ const FavoriteListItem = ({ favorite, onRemove, onUpdate, onNavigate }: Favorite
   const handleUpdate = (newName: string) => {
     if (newName.trim() && newName !== favorite.name) {
       onUpdate(favorite.id, newName.trim());
+      toast.success('이름이 변경되었습니다.');
     }
     setIsEditing(false);
+  };
+
+  const handleRemove = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onRemove(favorite.id);
+    toast.success('즐겨찾기 목록에서 제거되었습니다.');
   };
 
   return (
@@ -27,13 +35,7 @@ const FavoriteListItem = ({ favorite, onRemove, onUpdate, onNavigate }: Favorite
       onClick={() => !isEditing && onNavigate(favorite.fullAddress)}
       className="relative flex items-center p-4 bg-white border border-slate-100 rounded-2xl shadow-sm cursor-pointer hover:bg-slate-50 active:bg-slate-100 transition-colors gap-4"
     >
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          onRemove(favorite.id);
-        }}
-        className="text-yellow-400 hover:text-slate-300 transition-colors shrink-0"
-      >
+      <button onClick={handleRemove} className="text-yellow-400 hover:text-slate-300 transition-colors shrink-0">
         <Star size={24} fill="currentColor" strokeWidth={1.5} />
       </button>
 
