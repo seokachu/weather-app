@@ -1,42 +1,44 @@
-import RegionSearch from '@/features/search/ui/RegionSearch';
 import { useMainWeather } from '@/features/weather/model/useMainWeather';
-import {
-  WeatherCard,
-  HourlyWeather,
-  WeatherSummary,
-  WeatherCardSkeleton,
-  HourlyWeatherSkeleton,
-  WeatherSummarySkeleton,
-  WeatherError,
-} from '@/widgets/weather';
+import { useDetailWeather } from '@/features/weather/model/useDetailWeather';
+import { useLocationPermission } from '@/features/weather/model/useLocationPermission';
+import { MainHeader } from '@/widgets/layout/MainHeader';
+import { EmptyWeatherView } from '@/widgets/weather/ui/EmptyWeatherView';
+import { WeatherError, WeatherSkeletonView } from '@/widgets/weather';
+import { WeatherContentView } from '@/widgets/weather/ui/WeatherContentView';
 
-export const MainPage = () => {
+export const MainPage = ({ isDetail = false }: { isDetail?: boolean }) => {
+  const locationError = useLocationPermission(isDetail);
   const { data, isPending, isError, locationName, hasNoLocationData, handleReset, handleLocationSelect } =
     useMainWeather();
+  useDetailWeather(isDetail, handleLocationSelect);
 
-  const errorView = (hasNoLocationData || isError) && <WeatherError onReset={handleReset} />;
+  const renderContent = () => {
+    if (isPending) return <WeatherSkeletonView />;
 
-  const dataView = data && (
-    <>
-      <WeatherCard data={data.items} locationName={locationName} coords={data.coords} />
-      <HourlyWeather data={data.items} />
-      <WeatherSummary data={data.items} />
-    </>
-  );
+    if (locationError && !data && !locationName) {
+      return <EmptyWeatherView isLocationDenied={true} />;
+    }
+
+    if (data) {
+      return <WeatherContentView data={data} locationName={locationName} />;
+    }
+
+    if (isError || hasNoLocationData) {
+      return <WeatherError onReset={handleReset} />;
+    }
+
+    return <EmptyWeatherView isLocationDenied={false} />;
+  };
 
   return (
     <main className="p-6">
-      <RegionSearch onSelect={handleLocationSelect} />
-      {isPending ? (
-        <div className="mt-6 space-y-6">
-          <WeatherCardSkeleton />
-          <HourlyWeatherSkeleton />
-          <WeatherSummarySkeleton />
-          <div className="text-center text-slate-500 text-sm mt-4">🔄 날씨 정보를 불러오는 중...</div>
-        </div>
-      ) : (
-        errorView || dataView || <div className="mt-6 text-center text-slate-500">📍 날씨 정보를 불러오는 중...</div>
-      )}
+      <MainHeader
+        isDetail={isDetail}
+        locationError={locationError}
+        locationName={locationName}
+        onLocationSelect={handleLocationSelect}
+      />
+      {renderContent()}
     </main>
   );
 };
