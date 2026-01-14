@@ -3,7 +3,7 @@ import { useFavorites } from '@/entities/favorite/hooks/useFavorites';
 import { FavoriteEmptyView } from '@/entities/favorite/ui/FavoriteEmptyView';
 import FavoriteList from '@/entities/favorite/ui/FavoriteList';
 
-const FavoritePage = () => {
+export const FavoritePage = () => {
   const { favorites, removeFavorite, updateNickname } = useFavorites();
   const navigate = useNavigate();
 
@@ -28,5 +28,3 @@ const FavoritePage = () => {
     </div>
   );
 };
-
-export default FavoritePage;
