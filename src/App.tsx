@@ -11,6 +11,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/main" replace />} />
           <Route path="/main" element={<MainPage />} />
+          <Route path="/detail/:id" element={<MainPage isDetail={true} />} />
           <Route path="/favorite" element={<FavoritePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
