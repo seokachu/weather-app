@@ -6,11 +6,10 @@ import type { LocationType } from '@/shared/utils/locationData';
 interface MainHeaderProps {
   isDetail: boolean;
   locationError: string | null;
-  locationName: string;
   onLocationSelect: (location: LocationType) => void;
 }
 
-export const MainHeader = ({ isDetail, locationError, locationName, onLocationSelect }: MainHeaderProps) => {
+export const MainHeader = ({ isDetail, locationError, onLocationSelect }: MainHeaderProps) => {
   const navigate = useNavigate();
 
   if (isDetail) {
@@ -20,7 +19,6 @@ export const MainHeader = ({ isDetail, locationError, locationName, onLocationSe
           <span className="text-xl">⬅️</span>
           <span className="text-slate-600">뒤로가기</span>
         </button>
-        <h2 className="text-xl font-bold">{locationName}</h2>
       </div>
     );
   }
